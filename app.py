@@ -3,7 +3,7 @@ user=[]
 bot=[]
 win=False
 dealerstays=False
-print("welcome to blackjack!")
+print("welcome to blackjack! You start with 2 cards, try to get as close to 21 as possible without going over.")
 for i in range(2):
     user.append(random.randint(1,14))
     bot.append(random.randint(1,14))
@@ -15,9 +15,11 @@ while sum(user)<21 and win==False:
     another_round=input("your total is "+str(sum(user))+", do you want another card? (y/n)")
     if another_round=="y":
         user.append(random.randint(1,14))
+        print("your cards:",user)
     if sum(bot)<sum(user) and sum(bot)<16:
         print("dealer draws")
         bot.append(random.randint(1,14))
+        print("dealer's cards:",bot)
     else: 
         print("dealer stays")
         dealerstays=True
@@ -36,7 +38,6 @@ while sum(user)<21 and win==False:
             another_round="y"
     if sum(user)>21:
         print("you lose!")
-        win=True
         break
     elif sum(bot)>21:
         print("you win!")
@@ -48,7 +49,5 @@ while sum(user)<21 and win==False:
         break
     elif sum(bot)==21:
         print("you lose!")
-        win=True
         break
-    bot.append(random.randint(1,14))
-    another_round=input("your total is "+str(sum(user))+" do you want another card? (y/n)")
+
