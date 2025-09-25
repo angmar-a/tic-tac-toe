@@ -1,6 +1,7 @@
 from src.player import Human
 from src.game import Game
 from src.ai import AI
+from app import blackjack
 
 def prompt_choice(prompt, choices):
     choices_lower = {c.lower(): c for c in choices}
@@ -13,8 +14,10 @@ def prompt_choice(prompt, choices):
 def prompt_yes_no(prompt):
     while True:
         ans = input(f"{prompt} [y/n] > ").strip().lower()
-        if ans in {"y","yes"}: return True
-        if ans in {"n","no"}: return False
+        if ans in {"y","yes"}: 
+            return True
+        if ans in {"n","no"}: 
+            return False
         print("Type y or n.")
 
 def choose_marks(p1_name="Player 1", p2_name="Player 2"):
@@ -31,17 +34,19 @@ def print_positions_guide():
 def main():
     print_positions_guide()
 
-    mode = prompt_choice("Choose mode:", ["HUMANvsHUMAN","HUMANvsAI"])
-    if mode == "humanvsai":
-        you_first = prompt_yes_no("Do you want to go first (play as X)?")
-        if you_first:
+    mode = prompt_choice("Choose mode:", ["2player","1player"])
+    if mode == "1player":
+        print("You will play blackjack to decide who will go first for Tic-Tac-Toe")
+        you_won = blackjack()
+        # If the human won blackjack, they get to pick their mark and go first.
+        if you_won:
+            # Human chooses X (goes first) by default after winning.
             p1 = Human("You", "X")
             p2 = AI("O")
-            start_idx = 0
         else:
+            # Dealer/AI won blackjack; AI gets X and goes first.
             p1 = AI("X")
             p2 = Human("You", "O")
-            start_idx = 0  # X always starts; our p1 is X
     else:
         # HUMAN vs HUMAN
         names = [input("Enter name for Player 1: ").strip() or "Player 1",
